@@ -44,18 +44,22 @@ function Residents({ data }: { data: Person[] }) {
     <div>
       <h2 className='w-full border-b text-xl py-4'>Residents</h2>
       <div className='divide-y py-4'>
-        {data.map((person) => {
-          const fields = Object.entries(person)
-          return (
-            <div key={person.name} className='md:grid grid-cols-2 gap-4'>
-              {fields.map(([key, value]) => {
-                if (!value.toString()) return null
-                if (!renderableFields.includes(key)) return null
-                return <FieldDetails key={key} label={key} value={value} />
-              })}
-            </div>
-          )
-        })}
+        {data.length > 0 ? (
+          data.map((person) => {
+            const fields = Object.entries(person)
+            return (
+              <div key={person.name} className='md:grid grid-cols-2 gap-4 py-4'>
+                {fields.map(([key, value]) => {
+                  if (!value.toString()) return null
+                  if (!renderableFields.includes(key)) return null
+                  return <FieldDetails key={key} label={key} value={value} />
+                })}
+              </div>
+            )
+          })
+        ) : (
+          <span className='text-center'>No residents</span>
+        )}
       </div>
     </div>
   )
